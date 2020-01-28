@@ -26,7 +26,7 @@ print("Ping tesztelés fut...")
 while True:
     try:
         check_call(['ping', '-n', '3', ip],stdout=PIPE)
-        logger.info('ok ping test {}'.format(ip))
+        logger.infop('ok ping test {}'.format(ip))
     except CalledProcessError as e:
         logger.error('failed ping test {}'.format(ip))
 
