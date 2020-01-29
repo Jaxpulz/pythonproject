@@ -12,14 +12,13 @@ def setup_logging():
     
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
     log_handler = TimedRotatingFileHandler('py_ping_test.log', when='D', backupCount=30)
-    log_handler.setLevel('INFO')
+    log_handler.setLevel(logging.DEBUG)
     log_handler.setFormatter(formatter)
     logger.addHandler(log_handler)
     return logger
 
 logger = setup_logging()
 ip = input("Lökj egy IP-t vagy host nevet pingeléshez: ")
-dns = input("Ide meg egy host nevet vagy IP-t névfeloldásra, mondjuk google.com: ")
 
 print("\nIde fog logolni: {}\py_ping_test.log".format(os.path.dirname(os.path.realpath(__file__))))
 print("Ping tesztelés fut...")
@@ -31,9 +30,9 @@ while True:
         logger.error('failed ping test {}'.format(ip))
 
     try:
-        socket.gethostbyname(dns)
-        logger.info('ok DNS test {}'.format(dns))
+        socket.gethostbyname(ip)
+        logger.info('ok DNS test {}'.format(ip))
     except:
-        logger.error('failed DNS test {}'.format(dns))
+        logger.error('failed DNS test {}'.format(ip))
 
     time.sleep(3)
