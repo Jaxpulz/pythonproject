@@ -1,9 +1,9 @@
 from subprocess import check_call, CalledProcessError,PIPE
 import socket
 import time
-import logging
 from logging.handlers import TimedRotatingFileHandler
 import os
+import logging
 
 def setup_logging():
    
