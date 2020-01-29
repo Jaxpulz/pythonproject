@@ -12,7 +12,7 @@ def setup_logging():
     
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
     log_handler = TimedRotatingFileHandler('py_ping_test.log', when='D', backupCount=30)
-    log_handler.setLevel('DEBUG')
+    log_handler.setLevel('INFO')
     log_handler.setFormatter(formatter)
     logger.addHandler(log_handler)
     return logger
@@ -26,7 +26,7 @@ print("Ping tesztelés fut...")
 while True:
     try:
         check_call(['ping', '-n', '3', ip],stdout=PIPE)
-        logger.infop('ok ping test {}'.format(ip))
+        logger.info('ok ping test {}'.format(ip))
     except CalledProcessError as e:
         logger.error('failed ping test {}'.format(ip))
 
