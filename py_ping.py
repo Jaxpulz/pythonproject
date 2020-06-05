@@ -1,20 +1,22 @@
-from subprocess import check_call, CalledProcessError,PIPE
+from subprocess import check_call, CalledProcessError,PIPE, Popen
 import socket
 import time
 from logging.handlers import TimedRotatingFileHandler
 import os
 import logging
 
-
 logging.basicConfig(filename='py_ping_test.log',level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+
 def setup_logging():
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+    logger.propagate = False
+    logging.getLogger().setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
     log_handler = TimedRotatingFileHandler('py_ping_test.log', when='D', backupCount=30)
     log_handler.setLevel(logging.DEBUG)
     log_handler.setFormatter(formatter)
+    logger.handlers.clear()
     logger.addHandler(log_handler)
     return logger
 
@@ -24,16 +26,14 @@ ip = input("Lökj egy IP-t vagy host nevet pingeléshez: ")
 print("\nIde fog logolni: {}/py_ping_test.log".format(os.path.dirname(os.path.realpath(__file__))))
 print("Ping tesztelés fut...")
 while True:
-    try:
-        check_call(['ping', '-c', '3', ip],stdout=PIPE)
-        logger.info('ok ping test {}'.format(ip))
-    except CalledProcessError as e:
-        logger.error('failed ping test {}'.format(ip))
+    ping_response = (Popen(["ping", ip, "-c", '600','-w','1'], stdout=PIPE).stdout.read()).decode()
+    rm_empty_lines = ping_response.split('\n')
+    ping_response = [line for line in rm_empty_lines if line.strip() != ""]
 
-    try:
-        socket.gethostbyname(ip)
-        logger.info('ok DNS test {}'.format(ip))
-    except:
-        logger.error('failed DNS test {}'.format(ip))
+    for line in ping_response:
+        line = line.split('\r')
+        line = [r for r in line if r.strip() != ""]
+        for res in line:
+            logger.info(res)
 
-    time.sleep(3)
+    time.sleep(2)
