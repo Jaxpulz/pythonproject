@@ -26,7 +26,7 @@ ip = input("Lökj egy IP-t vagy host nevet pingeléshez: ")
 print("\nIde fog logolni: {}/py_ping_test.log".format(os.path.dirname(os.path.realpath(__file__))))
 print("Ping tesztelés fut...")
 while True:
-    ping_response = (Popen(["ping", ip, "-c", '600','-w','1'], stdout=PIPE).stdout.read()).decode()
+    ping_response = (Popen(["ping", ip, "-c", '60','-W','1'], stdout=PIPE).stdout.read()).decode()
     rm_empty_lines = ping_response.split('\n')
     ping_response = [line for line in rm_empty_lines if line.strip() != ""]
 
