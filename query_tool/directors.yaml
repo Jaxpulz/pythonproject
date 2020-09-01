@@ -1,0 +1,13 @@
+ALPHA:
+  un8-rm-walp:
+    - 9500
+    - 9530
+UAT:
+  un8-wk-wekeke:
+    - 9500
+  un9-www-asd:
+    - 9300
+PROD:
+  pnv-rm:
+    - 9500
+  

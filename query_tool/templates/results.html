@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block body %}
+<table class="table table-striped" id="log_table">
+    <tbody>
+      {% for line in result %}
+      <tr>
+        <td>
+          {{ line }}
+        </td>
+      </tr>
+     {% endfor %}
+{% endblock %}
