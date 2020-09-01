@@ -60,7 +60,7 @@ def on_send_query(data):
     logger.info(data['port'])
     logger.info(data['query'])
     for line in log_stream.getvalue().splitlines():
-        emit('log', line)
+        emit('sq_response', line)
 
 @socketio.on('environment')
 def on_environment(data):
@@ -71,10 +71,6 @@ def on_director(data):
     env = data['env']
     dr = data['dir']
     emit('director_response', directors[env][dr] )
-
-@app.route('/send_query', methods=['GET','POST'])
-def send_query():
-    return redirect('/log_stream')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
