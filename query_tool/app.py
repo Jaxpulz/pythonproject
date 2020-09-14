@@ -25,6 +25,7 @@ logger.addHandler(ch)
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 socketio = SocketIO(app)
+
 with open('queries.yaml') as queries_file:
     queries = yaml.safe_load(queries_file)
 

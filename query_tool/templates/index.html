@@ -35,12 +35,12 @@
     <div class="row justify-content-sm-start ml-auto w-100 ">
       
       <div class="list-group pb-3" id="action_selector" role="tablist">
-        <a class="list-group-item list-group-item-action active text-center" data-toggle="list" href="#send_query" role="tab">Send Query</a>
-        <a class="list-group-item list-group-item-action text-center" data-toggle="list" href="#kill_job" role="tab">Kill Job</a>
-        <a class="list-group-item list-group-item-action text-center" data-toggle="list" href="#get_dir_pool" role="tab">Get director pool servers</a>
+        <a class="list-group-item list-group-item-dark active text-center" data-toggle="list" href="#send_query" role="tab">Send Query</a>
+        <a class="list-group-item list-group-item-dark text-center" data-toggle="list" href="#kill_job" role="tab">Kill Job</a>
+        <a class="list-group-item list-group-item-dark text-center" data-toggle="list" href="#get_dir_pool" role="tab">Get director pool servers</a>
       </div>
       <div class="tab-content w-75" id="action_selector">
-        <div class="tab-pane fade show active ml-3 w-100" id="send_query" role="tabpanel">
+        <div class="tab-pane fade show active ml-3 w-100 border-left pl-3" id="send_query" role="tabpanel">
           <form action="/send_query" id="send_query">
             <div class="form-group w-50">
               <label for="Queries">Example queries</label>
@@ -52,13 +52,13 @@
               </select>
             </div>
 
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
+            <div class="row form-row">
+              <div class="col-md-4 mb-3 w-75" style="min-width: 200px;">
                 <label for="hostname">Hostname</label>
                 <input type="text" class="form-control" id="hostname" required>
               </div>
 
-              <div class="col-md-2 mb-2">
+              <div class="col-md-4 mb-3 w-25" style="min-width: 100px;">
                 <label for="port">port</label>
                 <input type="text" class="form-control" id="port" required>
               </div>
@@ -81,7 +81,7 @@
           </form>
         </div>
       
-        <div class="tab-pane fade ml-3 w-100" id="kill_job" role="tabpanel">
+        <div class="tab-pane fade ml-3 w-100 border-left pl-3" id="kill_job" role="tabpanel">
           <form action="">
             <div class="form-row w-50">
               <div class="col-md-5 mb-3" style="min-width: 170px;">
@@ -107,7 +107,7 @@
             </div>
           </form>
         </div>
-        <div class="tab-pane fade ml-3 w-100" id="get_dir_pool" role="tabpanel">
+        <div class="tab-pane fade ml-3 w-100 border-left pl-3" id="get_dir_pool" role="tabpanel">
 
           <form action="">
             <div class="form-row w-100">
@@ -133,7 +133,11 @@
               </div>
 
             </div>
-            <input type="submit" value="Get Server" id="kil_job_submit">
+            <div class="row align-items-center pl-3">
+              <input type="submit" value="Get Server" id="gs_submit">
+              <a class="material-icons pl-1 " data-toggle="tooltip" data-delay="300" data-placement="bottom"
+              title="Get a list of servers.">error_outline</a>
+            </div>
           </form>
         </div>
       </div>
@@ -177,6 +181,7 @@ $('#send_query').submit(function(){
 socket.on('sq_response', function(msg) {
   $('#Query_res').val(msg);
 });
+
 
 $('#dir_env').change(function(e){ 
   e.preventDefault()
